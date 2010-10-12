@@ -14,9 +14,29 @@
 
 #ifndef _BSTREE_H_
 #define _BSTREE_H_
+#include <iostream>
+#include <cassert>
+using namespace std;
+
 
 class BSTree {
-	
+
+	//============================================================
+	// Overloaded  output operator for BSTree class.
+	// 
+	// Preconditions: the_bstree.my_root must point to the first
+	//		  element of the BSTree, or NULL. 		  
+	//
+	// Postconditions: The elements of the_bstree are sent to 
+	//		   the output using iostream using a frequency
+	//		   table format. It uses an in-order traversal
+	//		   of the tree and orders them accordting to
+	//		   ASCII. The stream is then returned.
+	//============================================================ 
+	friend ostream& operator<< (ostream &, const BSTree &);
+
+
+public: 
 	//========================Default-Constructor=================
 	// Creates a BSTree object with a null root.
 	// 
@@ -47,6 +67,18 @@ class BSTree {
 	// Postconditions: This BSTree memory has been deallocated.
 	//============================================================ 
 	~BSTree ();
+
+
+	//========================descendents=========================
+	// Returns the number of descendents of the node storing a 	
+	// character in the BSTree. A leaf has zero descendents.
+	// 
+	// Preconditions: Overloaded output operator of Object class
+	//		  must be overrided to display the character. 		 
+	//
+	// Postconditions:  		 
+	//============================================================ 
+	int descendents (const Object &) const;	
 
 
 	//========================isEmpty=============================
@@ -104,6 +136,9 @@ class BSTree {
 	//		   root is NULL.
 	//============================================================ 
 	void makeEmpty ();	
+
+
+private:
 
 };
 #endif /* _BSTREE_H */
