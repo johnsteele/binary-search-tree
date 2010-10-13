@@ -16,6 +16,7 @@
 #define _BSTREE_H_
 #include <iostream>
 #include <cassert>
+#include "Object.h"
 using namespace std;
 
 
@@ -140,6 +141,15 @@ public:
 
 private:
 
+	// A structure to store the data Object.
+	// Also hold the left and right child of the Node.
+	struct Node {
+		Object *item;	    // Actual data being stored.
+		struct Node *left;  // Left  child of this node.
+		struct Node *right; // Right child of this node.
+	};
+	
+	struct Node *my_root;	    // The root of this BSTree. 
 };
 #endif /* _BSTREE_H */
 
