@@ -1,11 +1,16 @@
 //====================================================================
 // BSTree.h 
+//  
+// This class represents a node-based binary search tree data 
+// structure, which has the following properties: The left subtree 
+// of a node contains only nodes with keys less than the node's key; 
+// The right subtree of a node contains only nodes with keys greater
+// than the node's key; Both the left and right subtrees must also 
+// be binary search trees. 
 // 
-// This class represents a Binary Search Tree.  
-// 
-// Author: John Steele <steelejr@u.washinton.edu> 
-// Date  : 2010/10/18
-// Class : CSS 343
+// Author: John Steele <steelejr@u.washington.edu> 
+// Date  : 2010/10/19
+// Class : CSS 343 - Lab 2
 //====================================================================
 // Binary class: 
 //   Includes following features:
@@ -15,7 +20,6 @@
 #ifndef _BSTREE_H_
 #define _BSTREE_H_
 #include <iostream>
-#include <cassert>
 #include "Object.h"
 using namespace std;
 
@@ -68,16 +72,44 @@ public:
 	// Postconditions: This BSTree memory has been deallocated.
 	//============================================================ 
 	~BSTree ();
+	
+
+	//========================retrieve============================ 
+	// Finds the provided object in this tree. Returns NULL if the
+	// item is not found.
+	// 
+	// Preconditions: The Object is not NULL and contains a valid
+	// 		  ASCII character.
+	//		 
+	// Postconditions: Returns a pointer to the Object if found,
+	//	 	   a NULL pointer is returned otherwise. 		 
+	//============================================================ 
+	const Object * retrieve (const Object &) const;	
+
+
+	//========================depth=============================== 
+	// Returns the depth of a character in the tree. The depth
+	// of root is 0.
+	// 
+	// Preconditions: The object should contain a valid ASCII 
+	//		  character.		 
+	//
+	// Postconditions: Returns the depth of the character in this
+	//		   tree, returns -1 if not found. 	 
+	//============================================================ 
+	int depth (const Object &) const;	
 
 
 	//========================descendents=========================
-	// Returns the number of descendents of the node storing a 	
+	// Returns the number of descendents of the node storing the 	
 	// character in the BSTree. A leaf has zero descendents.
 	// 
 	// Preconditions: Overloaded output operator of Object class
 	//		  must be overrided to display the character. 		 
 	//
-	// Postconditions:  		 
+	// Postconditions: Returns the number of Node descendents of
+	// 		   the Node storing the provided character.
+	//		   Retuns -1 if the object is not found. 		 
 	//============================================================ 
 	int descendents (const Object &) const;	
 
@@ -139,17 +171,61 @@ public:
 	void makeEmpty ();	
 
 
+	//========================operator(=)=========================
+	// Overloaded assignment operator.
+	// 
+	// Preconditions: the_other.my_root points to the first Node
+	//		  in the tree, or NULL.
+	// 		
+	// Postconditions: *this contains the same copies of the same
+	//		   data as the_other, *this is then returned.		  
+	//============================================================ 
+	const BSTree& operator=  (const BSTree &);	
+
+
+	//========================operator(==)========================
+	// Determine if two BSTrees are equal. Two trees are equal 
+	// if they have the same data, the same structure, and the
+	// same number of occurances for each character.
+	// 
+	// Preconditions: my_root and the_other.my_root point to the
+	//		  first Node in the tree, or NULL.		 
+	// 		
+	// Postconditions: true is returned if the this and the_other
+	//		   tree have the same data, the same structure
+	//		   and the same number of occurances for each
+	//		   character.		  
+	//============================================================ 
+	bool operator==  (const BSTree &) const;	
+
+
+	//========================operator(!=)========================
+	// Determine if two BSTrees are not equal. Two trees are not
+	// equal if they do not have the same data, or same structure,
+	// or same number of of occurances for each character. 
+	// 
+	// Preconditions: my_root and the_other.my root point to the
+	//		  first Node their tree or NULL.
+	//		  		
+	// Postconditions: false is returned if the trees have the 
+	// 		   same data, same structure, and same 
+	// 		   number of occurances of each character.
+	//		   True otherwise.		  		 
+	//============================================================ 
+	bool operator!= (const BSTree &) const;	
+
+
 private:
 
-	// A structure to store the data Object.
-	// Also hold the left and right child of the Node.
+	// The Node structure in the BSTree.
 	struct Node {
-		Object *item;	    // Actual data being stored.
-		struct Node *left;  // Left  child of this node.
-		struct Node *right; // Right child of this node.
+		Object *item; // Object data being stored.
+		Node *left;   // Left  child of this node, left subtree.
+		Node *right;  // Right child of this node, right subtree.
+		int occurances;
 	};
 	
-	struct Node *my_root;	    // The root of this BSTree. 
+	Node *my_root;	      // The root of this BSTree. 
 };
 #endif /* _BSTREE_H */
 
