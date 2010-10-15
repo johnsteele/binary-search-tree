@@ -14,6 +14,16 @@
 //====================================================================
 // Binary class: 
 //   Includes following features:
+// 	- allows output << of a BSTree. 
+//	- allows insterting an Object into the tree.
+//	- allows removing an Object from the tree.
+//	- allows retrieving an Object from the tree.
+//	- allows getting the depth of a node in the tree.
+//	- allows checking if the tree is empty.
+//	- allows making the tree empty.
+//	- allows getting the number of descendents a node has.
+// 	- allows for equality and inequality comparisons of 2 BSTrees.
+//	- allows for assignment of 2 BSTrees.
 // Assumptions:
 //====================================================================
 
@@ -47,7 +57,8 @@ public:
 	// 
 	// Preconditions:  None.	
 	//
-	// Postconditions: This BSTree object has been instantiated.  		  
+	// Postconditions: This BSTree object has been instantiated,
+	//		   and my_root points to NULL.  		  
 	//============================================================ 
 	BSTree ();
 
@@ -101,7 +112,7 @@ public:
 
 
 	//========================descendents=========================
-	// Returns the number of descendents of the node storing the 	
+	// Returns the number of descendents of the node storing the
 	// character in the BSTree. A leaf has zero descendents.
 	// 
 	// Preconditions: Overloaded output operator of Object class
@@ -127,7 +138,11 @@ public:
 
 
 	//========================insert==============================
-	// Inserts the given Object into this BSTree.
+	// Inserts the given Object into this BSTree. If the character
+	// in the object is already in the tree its count is 
+	// incremented, and this tree does not take responsibility
+	// for the memory of the Object. It it isn't in the tree
+	// the tree takes responsibility of the memory of the Object.
 	// 
 	// Preconditions: my_root points to NULL or the first Object 
 	// 		  in this BSTree. Additionally, 
@@ -177,8 +192,8 @@ public:
 	// Preconditions: the_other.my_root points to the first Node
 	//		  in the tree, or NULL.
 	// 		
-	// Postconditions: *this contains the same copies of the same
-	//		   data as the_other, *this is then returned.		  
+	// Postconditions: the_other is copied into this.
+	//		   this is then returned.		   
 	//============================================================ 
 	const BSTree& operator=  (const BSTree &);	
 
@@ -219,13 +234,13 @@ private:
 
 	// The Node structure in the BSTree.
 	struct Node {
-		Object *item; // Object data being stored.
-		Node *left;   // Left  child of this node, left subtree.
-		Node *right;  // Right child of this node, right subtree.
-		int occurances;
+		Object *item;   // Object data being stored.
+		Node *left;     // Left  child subtree.
+		Node *right;    // Right child subtree.
+		int occurances; // Occurances of the character.
 	};
 	
-	Node *my_root;	      // The root of this BSTree. 
+	Node *my_root;	        // The root of this BSTree. 
 };
 #endif /* _BSTREE_H */
 
